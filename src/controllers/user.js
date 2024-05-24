@@ -19,9 +19,10 @@ module.exports = {
       `
     */
     //!Admin olmayan sadece kendi kayıtlarını görebilir.
-    // const customFilters = req.user?.isAdmin ? {} : { _id: req.user.id };
+    const customFilters = req.user?.isAdmin ? {} : { _id: req.user.id };
+    console.log(req.user.id);
 
-    const data = await res.getModelList(User); //, customFilters
+    const data = await res.getModelList(User, customFilters);
     res.status(200).send({
       error: false,
       details: await res.getModelListDetails(User),
@@ -37,7 +38,7 @@ module.exports = {
      #swagger.summary = "Create User"
     */
 
-    // req.body.isAdmin = false;
+    req.body.isAdmin = false;
 
     const data = await User.create(req.body);
 
@@ -83,11 +84,11 @@ module.exports = {
                 in: 'body',
                 required: true,
                 schema: {
-                    "username": "test",
-                    "password": "1234",
-                    "email": "test@site.com",
-                    "firstName": "test",
-                    "lastName": "test",
+                    "username": "user1",
+                    "password": "Aa?123456",
+                    "email": "user1@gmail.com",
+                    "firstName": "user1",
+                    "lastName": "user1",
                 }
     */
 
@@ -118,16 +119,16 @@ module.exports = {
       #swagger.summary = "Delete User"
     */
 
-    // if (req.params.id != req.user._id) {
-    const data = await User.deleteOne({ _id: req.params.id });
-    res.status(data.deletedCount ? 204 : 404).send({
-      error: !data.deletedCount,
-      data,
-    });
-    //     } else {
-    // Admin kendini silemez.
-    //       res.errorStatusCode = 403;
-    //       throw new Error("You can not remove your account.");
-    //     }
+    if (req.params.id != req.user._id) {
+      const data = await User.deleteOne({ _id: req.params.id });
+      res.status(data.deletedCount ? 204 : 404).send({
+        error: !data.deletedCount,
+        data,
+      });
+    } else {
+      // Admin kendini silemez.
+      res.errorStatusCode = 403;
+      throw new Error("You can not remove your account.");
+    }
   },
 };

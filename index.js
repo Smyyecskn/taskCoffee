@@ -15,9 +15,16 @@ const PORT = process.env?.PORT || 8000;
 // asyncErrors to errorHandler:
 require("express-async-errors");
 
+app.use(express.json());
+
 // Connect to DB:
 const { dbConnection } = require("./src/configs/dbConnection");
 dbConnection();
+
+//Middlewares:
+app.use(require("./src/middlewares/queryHandler"));
+
+app.use(require("./src/middlewares/authentication"));
 
 // HomePath:
 app.all("/", (req, res) => {
