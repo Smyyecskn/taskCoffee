@@ -5,6 +5,7 @@
 
 const Order = require("../models/order");
 const Coffee = require("../models/coffee");
+const Coupon = require("../models/coupon");
 const sendMail = require("../helpers/sendMail");
 
 module.exports = {
@@ -23,21 +24,17 @@ module.exports = {
             `
         */
 
-    //! Kullanıcı sadece kendi siparişini değiştirebilir.
-    let customFilter = { _id: req.params.id };
-    if (!req.user.isAdmin) {
-      customFilter = { _id: req.user._id };
-    }
+    // //! Kullanıcı sadece kendi siparişini görebilir.
+    // let customFilter = { _id: req.params.id };
+    // if (!req.user.isAdmin) {
+    //   customFilter = { _id: req.user._id };
+    // }
 
-    const data = await res.getModelList(Order, customFilter, ['userId', 'CoffeeId'])
-    // const data = await res.getModelList(Order, ...customFilter, [
-    //   "userId",
-    //   "coffeeId",
-    // ]);
+    const data = await res.getModelList(Order, {}, ["userId", "coffeeId"]);
 
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(Order, customFilter),
+      details: await res.getModelListDetails(Order),
       data,
     });
   },
@@ -61,14 +58,14 @@ module.exports = {
     // Güncel ürün bilgisini al:
     const currentCoffee = await Coffee.findOne({ _id: req.body.coffeeId });
 
-    if (currentCoffee.quantity >= req.body.quantity) {
+    if (currentCoffee.stock_quantity >= req.body.quantity) {
       // Create:
       const data = await Order.create(req.body);
 
       // Satış sonrası güncel stok adedini azalt:
       const updateCoffee = await Coffee.updateOne(
         { _id: data.coffeeId },
-        { $inc: { quantity: -data.quantity } }
+        { $inc: { stock_quantity: -data.quantity } }
       );
 
       res.status(201).send({
@@ -99,16 +96,15 @@ module.exports = {
             #swagger.summary = "Get Single Order"
         */
 
-    // Manage only self-record.
-    let customFilter = {};
-    if (!req.user.isAdmin) {
-      customFilter = { userId: req.user.id };
-    }
+    //! Manage only self-record.
+    // if (!req.user.isAdmin) {
+    //   customFilter = { userId: req.user.id };
+    // }
 
     const data = await Order.findOne({
       //bir başka kullanıcının siparişlerini görmesin diye.
       _id: req.params.id,
-      ...customFilter,
+      //! customFilter,
     }).populate(["userId", "coffeeId"]);
 
     res.status(200).send({
@@ -117,7 +113,7 @@ module.exports = {
     });
   },
 
-  update: async (req, res) => {
+  update: async (req, res) => { //!Burda sıkıntı var.
     /*
             #swagger.tags = ["Orders"]
             #swagger.summary = "Update Order"
@@ -130,9 +126,9 @@ module.exports = {
       // farkı kaydet:
       const updateCoffee = await Coffee.updateOne(
         { _id: currentOrder.coffeeId, quantity: { $gte: difference } },
-        { $inc: { quantity: -difference } }
+        { $inc: { quantity: -difference } } //!
+
       );
-      // console.log(updateCoffee)
 
       // Update işlemi olmamışsa, hata verdir. hata verince sistem devam etmeyecektir:,
       if (updateCoffee.modifiedCount == 0) {
@@ -166,7 +162,7 @@ module.exports = {
     // Adeti Coffee'dan arttır:iade işleminde
     const updateCoffee = await Coffee.updateOne(
       { _id: currentOrder.coffeeId },
-      { $inc: { quantity: +currentOrder.quantity } }
+      { $inc: { stock_quantity: +currentOrder.quantity } } //!
     );
 
     res.status(data.deletedCount ? 204 : 404).send({

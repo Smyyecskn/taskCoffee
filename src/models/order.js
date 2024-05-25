@@ -24,19 +24,18 @@ const OrderSchema = new mongoose.Schema(
     amount: {
       type: Number,
       set: function () {
-        return this.price * this.quantity;
+        return this.price * this.quantity + this.shippingCost;
       },
       default: function () {
-        return this.price * this.quantity;
+        return this.price * this.quantity + this.shippingCost;
       },
       transform: function () {
-        return this.price * this.quantity;
+        return this.price * this.quantity + this.shippingCost;
       },
     },
-
-    coupon: {
-      type: String,
-      trim: true,
+    shippingCost: {
+      type: Number,
+      default: this.amount > 500 ? 0 : 54.99,
     },
   },
   { collection: "orders", timestamps: true }
