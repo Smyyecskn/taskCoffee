@@ -17,7 +17,7 @@ router.use("/category", require("./category"));
 //orders:
 // router.use("/order", require("./order"));
 //coupon:
-// router.use("/coupon", require("./coupon"));
+router.use("/coupon", require("./coupon"));
 
 /* ------------------------------------------------------- */
 
