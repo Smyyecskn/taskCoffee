@@ -2,9 +2,9 @@
 
 module.exports = (req, res, next) => {
   const filter = req.query?.filter || {};
-  // console.log(filter)
+  // console.log(filter) //tamamını aratır
 
-  // ### SEARCHING ###
+  // ### SEARCHING ### //bir kısmını aratabilir.
 
   // URL?search[key1]=value1&search[key2]=value2
   // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
   // console.log(typeof limit, limit)
 
   let page = Number(req.query?.page);
-  page = page > 0 ? page - 1 : 0; // Backend'de sayfa sayısı her zaman (page - 1)'dir.
+  page = page > 0 ? page - 1 : 0; 
   // console.log(typeof page, page)
 
   let skip = Number(req.query?.skip);

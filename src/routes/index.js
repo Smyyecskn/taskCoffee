@@ -13,7 +13,7 @@ router.use("/auth", require("./auth"));
 //category:
 router.use("/category", require("./category"));
 //coffee:
-// router.use("/coffee", require("./coffee"));
+router.use("/coffee", require("./coffee"));
 //orders:
 // router.use("/order", require("./order"));
 //coupon:

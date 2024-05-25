@@ -23,19 +23,21 @@ const OrderSchema = new mongoose.Schema(
     },
     amount: {
       type: Number,
+      set: function () {
+        return this.price * this.quantity;
+      },
       default: function () {
-        return this.quantity * this.price;
+        return this.price * this.quantity;
       },
       transform: function () {
-        return this.quantity * this.price;
+        return this.price * this.quantity;
       },
     },
 
-    coupon:{
+    coupon: {
       type: String,
       trim: true,
     },
- 
   },
   { collection: "orders", timestamps: true }
 );
