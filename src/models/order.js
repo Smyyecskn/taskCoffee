@@ -21,21 +21,42 @@ const OrderSchema = new mongoose.Schema(
     price: {
       type: Number,
     },
+
     amount: {
       type: Number,
       set: function () {
-        return this.price * this.quantity + this.shippingCost;
+        return this.price * this.quantity;
       },
       default: function () {
-        return this.price * this.quantity + this.shippingCost;
+        return this.price * this.quantity;
       },
       transform: function () {
-        return this.price * this.quantity + this.shippingCost;
+        return this.price * this.quantity;
       },
     },
     shippingCost: {
       type: Number,
-      default: this.amount > 500 ? 0 : 54.99,
+      default: function () {
+        return this.amount > 500 ? 0 : 54.99;
+      },
+      transform: function () {
+        return this.amount > 500 ? 0 : 54.99;
+      },
+    },
+
+    discount: {
+      type: Number,
+      set: function () {
+        if (this.amount >= 3000) {
+          return this.amount * 0.25;
+        } else if (this.amount < 2000) {
+          return this.amount * 0.2;
+        } else if (this.amount < 1500) {
+          return this.amount * 0.15;
+        } else {
+          return this.amount * 0.1;
+        }
+      },
     },
   },
   { collection: "orders", timestamps: true }

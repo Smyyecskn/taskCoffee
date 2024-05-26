@@ -18,10 +18,9 @@ module.exports = {
       </ul>
       `
     */
-    //!Admin olmayan sadece kendi kayıtlarını görebilir.
+    // //!Admin olmayan sadece kendi kayıtlarını görebilir.
     const customFilters = req.user?.isAdmin ? {} : { _id: req.user.id };
-    console.log(req.user.id);
-
+ 
     const data = await res.getModelList(User, customFilters);
     res.status(200).send({
       error: false,
@@ -38,7 +37,7 @@ module.exports = {
      #swagger.summary = "Create User"
     */
 
-    req.body.isAdmin = false;
+    // req.body.isAdmin = false;
 
     const data = await User.create(req.body);
 
@@ -49,7 +48,7 @@ module.exports = {
       // Message
       `
                 <h1>Welcome ${data.username},Hello ${data.username}!!!</h1>
-                <p>Welcome to Coffee Market</p>
+                <p>Welcome to Coffee Store</p>
             `
     );*/
     res.status(201).send({
@@ -119,16 +118,16 @@ module.exports = {
       #swagger.summary = "Delete User"
     */
 
-    if (req.params.id != req.user._id) {
-      const data = await User.deleteOne({ _id: req.params.id });
-      res.status(data.deletedCount ? 204 : 404).send({
-        error: !data.deletedCount,
-        data,
-      });
-    } else {
-      // Admin kendini silemez.
-      res.errorStatusCode = 403;
-      throw new Error("You can not remove your account.");
-    }
+    // if (req.params.id != req.user._id) {
+    const data = await User.deleteOne({ _id: req.params.id });
+    res.status(data.deletedCount ? 204 : 404).send({
+      error: !data.deletedCount,
+      data,
+    });
+    // } else {
+    //   // Admin kendini silemez.
+    //   res.errorStatusCode = 403;
+    //   throw new Error("You can not remove your account.");
+    // }
   },
 };
