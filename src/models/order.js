@@ -34,6 +34,14 @@ const OrderSchema = new mongoose.Schema(
         return this.price * this.quantity;
       },
     },
+
+    bonusCoffee: {
+      type: Boolean,
+      set: function () {
+        this.amount > 3000 ? true : false;
+      },
+    },
+
     shippingCost: {
       type: Number,
       default: function () {
@@ -48,14 +56,18 @@ const OrderSchema = new mongoose.Schema(
       type: Number,
       set: function () {
         if (this.amount >= 3000) {
-          return this.amount * 0.25;
+          return this.amount * 0.25 + this.bonusCoffee;
         } else if (this.amount < 2000) {
           return this.amount * 0.2;
         } else if (this.amount < 1500) {
           return this.amount * 0.15;
-        } else {
+        } else if (this.amount >1000){
           return this.amount * 0.1;
-        }
+        } else if(this.amount >= 500){
+          return this.amount 
+        }else{
+          return this.shippingCost
+        }  
       },
     },
   },
