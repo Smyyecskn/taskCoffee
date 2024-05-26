@@ -56,18 +56,25 @@ const OrderSchema = new mongoose.Schema(
       type: Number,
       set: function () {
         if (this.amount >= 3000) {
-          return this.amount * 0.25 + this.bonusCoffee;
+          return (this.amount * 0.25) + this.bonusCoffee;
         } else if (this.amount < 2000) {
           return this.amount * 0.2;
         } else if (this.amount < 1500) {
           return this.amount * 0.15;
-        } else if (this.amount >1000){
+        } else if (this.amount > 1000) {
           return this.amount * 0.1;
-        } else if(this.amount >= 500){
-          return this.amount 
-        }else{
-          return this.shippingCost
-        }  
+        } else if (this.amount >= 500) {
+          return this.amount;
+        } else {
+          return this.shippingCost;
+        }
+      },
+    },
+
+    totalAmount: {
+      type: Number,
+      set: function () {
+        return this.amount - this.discount + this.shippingCost;
       },
     },
   },
