@@ -72,16 +72,6 @@ module.exports = {
         cause: { currentCoffee },
       });
     }
-
-    /* SendMail */ //!Kullanıcıya mail gönderdik.
-    // sendMail(
-    //   data.email, // to
-    //   "Siparişiniz alındı.", // subject
-    //   // Message
-    //   `
-    //             <p>Siparişiniz alındı☕☕☕</p>
-    // `
-    // );
   },
 
   read: async (req, res) => {
@@ -115,7 +105,7 @@ module.exports = {
       // farkı kaydet:
       const updateCoffee = await Coffee.updateOne(
         { _id: currentOrder.coffeeId, stock_quantity: { $gte: difference } },
-        { $inc: { stock_quantity:-difference } } //!
+        { $inc: { stock_quantity: -difference } } //!
       );
 
       // Update işlemi olmamışsa, hata verdir. hata verince sistem devam etmeyecektir:,

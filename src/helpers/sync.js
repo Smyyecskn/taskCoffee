@@ -2,13 +2,11 @@
 
 module.exports = async function () {
   // return null;
-
   /* REMOVE DATABASE *
   const { mongoose } = require("../configs/dbConnection");
   await mongoose.connection.dropDatabase();
   console.log("- Database and all data DELETED!");
   /* REMOVE DATABASE */
-
   // /* Category */
   // const Category = require("../models/category");
   // await Category.deleteMany(); // !!! Clear collection.
@@ -16,8 +14,7 @@ module.exports = async function () {
   //4e4      t004c5ffb974dd56",
   //   title: "Kahve",
   // });
-
-  /* Coffee */
+  /* Coffee *
   const Coffee = require("../models/coffee");
   await Coffee.deleteMany(); // !!! Clear collection.
   await Coffee.create({
@@ -220,4 +217,5 @@ module.exports = async function () {
       flavor_notes: ["Mango", "Ananas", "Kokos"],
     });
   console.log("Synced Coffees");
+};*/
 };

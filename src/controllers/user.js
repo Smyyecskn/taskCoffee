@@ -1,7 +1,7 @@
 "use strict";
 
 const User = require("../models/user");
-// const sendMail = require("../helpers/sendMail");
+const sendMail = require("../helpers/sendMail");
 
 module.exports = {
   list: async (req, res) => {
@@ -20,11 +20,11 @@ module.exports = {
     */
     // //!Admin olmayan sadece kendi kayıtlarını görebilir.
     const customFilters = req.user?.isAdmin ? {} : { _id: req.user.id };
- 
+
     const data = await res.getModelList(User, customFilters);
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(User),
+      details: await res.getModelListDetails(User, customFilters),
       data,
     });
   },
@@ -41,16 +41,16 @@ module.exports = {
 
     const data = await User.create(req.body);
 
-    /* SendMail *
+    // /* SendMail *
     sendMail(
       data.email, // to
       "Welcome", // subject
-      // Message
       `
-                <h1>Welcome ${data.username},Hello ${data.username}!!!</h1>
-                <p>Welcome to Coffee Store</p>
+                <p>Welcome</p>
+                <h1>,Hello ${data.username} Welcome to Coffee Store ☕</h1>
+                
             `
-    );*/
+    );
     res.status(201).send({
       error: false,
       data,

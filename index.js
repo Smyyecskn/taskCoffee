@@ -47,4 +47,4 @@ app.use(require("./src/middlewares/errorHandler"));
 app.listen(PORT, HOST, () => console.log(`http://${HOST}:${PORT}`));
 
 // sync():
-// require("./src/helpers/sync")();
+require("./src/helpers/sync")();
