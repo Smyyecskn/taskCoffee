@@ -21,7 +21,7 @@
 
 -Kupon kodu algoritmasını oluşturdum.
 -Siparişlerdeki ürün adetlerini artırma, azaltma işlemini ve silinmesi işlevlerini ve stok kontrolunu sağladım. İptal veya iade işlevlerini tamamladım.
--sendMail ile kullanıcı giriş yaptığında ve sipariş verdiğinde kullanıcıya ismiyle bir mail göndermeyi sağladım.
+-sendMail ile kullanıcı giriş yaptığında ve kullanıcı sipariş oluşturdugunda kullanıcıya ismiyle bir mail göndermeyi sağladım.
 
 
 
