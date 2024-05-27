@@ -2,6 +2,8 @@
 
 - Müşteriler;
 - Geçmiş siparişler de dahil olmak üzere siparişlerin listesini görebilir.
+- Kategorileri görebilir.
+- Kahveleri görebilir. Kahve satın alabilirler.
  -Siparişlerini  listeleyebilir, oluşturabilir, okuyabilir.
 -Kuponları görebilir.
 
