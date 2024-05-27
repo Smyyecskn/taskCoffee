@@ -1,5 +1,7 @@
 "use strict";
 
+//User Controller:
+
 const User = require("../models/user");
 const sendMail = require("../helpers/sendMail");
 
@@ -37,7 +39,7 @@ module.exports = {
      #swagger.summary = "Create User"
     */
 
-    // req.body.isAdmin = false;
+    req.body.isAdmin = false;
 
     const data = await User.create(req.body);
 
@@ -118,16 +120,10 @@ module.exports = {
       #swagger.summary = "Delete User"
     */
 
-    // if (req.params.id != req.user._id) {
     const data = await User.deleteOne({ _id: req.params.id });
     res.status(data.deletedCount ? 204 : 404).send({
       error: !data.deletedCount,
       data,
     });
-    // } else {
-    //   // Admin kendini silemez.
-    //   res.errorStatusCode = 403;
-    //   throw new Error("You can not remove your account.");
-    // }
   },
 };

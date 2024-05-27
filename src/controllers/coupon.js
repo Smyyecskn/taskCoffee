@@ -1,6 +1,6 @@
 "use strict";
 
-// Token Controller:
+// Coupon Controller:
 
 const Coupon = require("../models/coupon");
 

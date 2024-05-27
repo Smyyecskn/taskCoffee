@@ -4,7 +4,7 @@
 
 const User = require("../models/user");
 const Token = require("../models/token");
-const passwordEncrypt = require("../helpers/passwordEncrypt"); //altta tokenData oluşturmak için import ettik.
+const passwordEncrypt = require("../helpers/passwordEncrypt"); 
 
 module.exports = {
   login: async (req, res) => {

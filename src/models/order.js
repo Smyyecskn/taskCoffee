@@ -7,7 +7,7 @@ const OrderSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true, //unique değil çünkü bir kullanıcı birden fazla sipariş verebilir
+      required: true, 
     },
     coffeeId: {
       type: mongoose.Schema.Types.ObjectId,
