@@ -16,12 +16,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      // validate: [
-      //     (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password),
-      //     'Password type is not correct.'
-      // ],
-      // set: passwordEncrypt
-
       set: (password) => {
         if (
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)
@@ -60,5 +54,4 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-// Model:
 module.exports = mongoose.model("User", UserSchema);

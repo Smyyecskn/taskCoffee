@@ -13,18 +13,19 @@
  -Coupon tablosu üzerinden CRUD işlemlerini yapabilir, Kuponları düzenleyebilir,oluşturabilir ve silebilir.
 
 - Liste görünümlerinde arama, sıralama ve sayfalandırma özellikleri bulunmaktadır.(queryHandler)
--Permissionlar bulunmaktadır. admin olarak giriş yapabilmek için 
+-Permissionlar bulunmaktadır. admin olarak giriş yapabilmek için :
 {
   "email": "admin@gmail.com",
   "password": "Sumeyye1?",
   } bu email ve şifre yeterlidir.
 
+
 -Kupon kodu algoritmasını oluşturdum.
 -Siparişlerdeki ürün adetlerini artırma, azaltma işlemini ve silinmesi işlevlerini ve stok kontrolunu sağladım. İptal veya iade işlevlerini tamamladım.
+-Kuyruklama yapısını tamamladım.
 -sendMail ile kullanıcı giriş yaptığında ve kullanıcı sipariş oluşturdugunda kullanıcıya ismiyle bir mail göndermeyi sağladım.
-
-
-
+-paswordEncrypt ile kullanıcının passwordunu şifreledim.
+-sync dosyasında coffeeleri veritabanına ekledim.
 
 
 ### Folder/File Structure:

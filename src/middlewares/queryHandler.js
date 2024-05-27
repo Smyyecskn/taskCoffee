@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
   // console.log(typeof limit, limit)
 
   let page = Number(req.query?.page);
-  page = page > 0 ? page - 1 : 0; 
+  page = page > 0 ? page - 1 : 0;
   // console.log(typeof page, page)
 
   let skip = Number(req.query?.skip);
@@ -41,7 +41,7 @@ module.exports = (req, res, next) => {
   // Run for output:
   res.getModelList = async (Model, customFilter = {}, populate = null) => {
     return await Model.find({ ...filter, ...search, ...customFilter })
-      .sort(sort)
+      // .sort(sort)
       .skip(skip)
       .limit(limit)
       .populate(populate);

@@ -1,5 +1,5 @@
 "use strict";
-//!Kimlik kontrolu yapılacak.Tokenı ve kim oldugunu kontrol edicez.
+//!Kimlik kontrolu yapılacak.
 
 const Token = require("../models/token");
 

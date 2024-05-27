@@ -23,12 +23,18 @@ module.exports = {
                 </ul>
             `
         */
+    let customFilter = {};
+    if (!req.user.isAdmin) {
+      customFilter = { userId: req.user.id };
+    }
 
-    const data = await res.getModelList(Order, {}, ["userId", "coffeeId"]);
+    const data = await res.getModelList(Order, customFilter, [
+      ("userId", "coffeeId"),
+    ]);
 
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(Order),
+      details: await res.getModelListDetails(Order, customFilter),
       data,
     });
   },
@@ -86,11 +92,16 @@ module.exports = {
             #swagger.tags = ["Orders"]
             #swagger.summary = "Get Single Order"
         */
+    // Manage only self-record.
+    let customFilter = {};
+    if (!req.user.isAdmin) {
+      customFilter = { userId: req.user._id };
+    }
 
-    const data = await Order.findOne({ _id: req.params.id }).populate([
-      "userId",
-      "coffeeId",
-    ]);
+    const data = await Order.findOne(
+      { _id: req.params.id },
+      customFilter,
+    ).populate(["userId", "coffeeId"]);
 
     res.status(200).send({
       error: false,
@@ -111,7 +122,7 @@ module.exports = {
       // farkı kaydet:
       const updateCoffee = await Coffee.updateOne(
         { _id: currentOrder.coffeeId, stock_quantity: { $gte: difference } },
-        { $inc: { stock_quantity: -difference } } //!
+        { $inc: { stock_quantity: -difference } }
       );
 
       // Update işlemi olmamışsa, hata verdir. hata verince sistem devam etmeyecektir:,

@@ -2,7 +2,7 @@
 
 module.exports = {
   isLogin: (req, res, next) => {
-    // return next; 
+    // return next; //iptal
     if (req.user && req.user.isActive) {
       next();
     } else {
@@ -12,7 +12,7 @@ module.exports = {
   },
 
   isAdmin: (req, res, next) => {
-    // return next; 
+    // return next; //iptal
     if (req.user && req.user.isActive && req.user.isAdmin) {
       next();
     } else {

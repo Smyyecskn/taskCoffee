@@ -1,7 +1,5 @@
 "use strict"
  
-// passwordEncrypt(password:string):
-
 const crypto = require('node:crypto'),
     keyCode = process.env.SECRET_KEY,
     loopCount = 10_000,

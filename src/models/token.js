@@ -1,8 +1,7 @@
 "use strict";
 
 const { mongoose } = require("../configs/dbConnection");
-/* ------------------------------------------------------- */
-// Token Model:
+
 
 const TokenSchema = new mongoose.Schema(
   {
