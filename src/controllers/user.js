@@ -19,12 +19,12 @@ module.exports = {
       `
     */
     // //!Admin olmayan sadece kendi kayıtlarını görebilir.
-    const customFilters = req.user?.isAdmin ? {} : { _id: req.user.id };
+    // const customFilters = req.user?.isAdmin ? {} : { _id: req.user.id };
 
-    const data = await res.getModelList(User, customFilters);
+    const data = await res.getModelList(User);
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(User, customFilters),
+      details: await res.getModelListDetails(User),
       data,
     });
   },

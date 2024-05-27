@@ -61,8 +61,9 @@ module.exports = {
         { _id: data.coffeeId },
         { $inc: { stock_quantity: -data.quantity } }
       );
+        
 
-      res.status(201).send({
+       res.status(201).send({
         error: false,
         data,
       });
@@ -92,7 +93,6 @@ module.exports = {
   },
 
   update: async (req, res) => {
-    //!Burda sıkıntı var.
     /*
             #swagger.tags = ["Orders"]
             #swagger.summary = "Update Order"
@@ -140,7 +140,7 @@ module.exports = {
     // Adeti Coffee'dan arttır:iade işleminde
     const updateCoffee = await Coffee.updateOne(
       { _id: currentOrder.coffeeId },
-      { $inc: { stock_quantity: +currentOrder.quantity } } //!
+      { $inc: { stock_quantity: +currentOrder.quantity } } 
     );
 
     res.status(data.deletedCount ? 204 : 404).send({

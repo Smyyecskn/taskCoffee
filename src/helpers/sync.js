@@ -216,6 +216,5 @@ module.exports = async function () {
       roast_level: "Orta",
       flavor_notes: ["Mango", "Ananas", "Kokos"],
     });
-  console.log("Synced Coffees");
-};*/
+  console.log("Synced Coffees"); */
 };

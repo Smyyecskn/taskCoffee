@@ -1,5 +1,3 @@
-//! Burada bir function oluştrduk. Artık user contollerda ,order contollerda (uye olunca sipariş olusturunca )kullanıcıya MAİL gönderebiliriz. AMA o sayfada da REqUiRE ETMELİYİZ.
-
 "use strict";
 
 const nodemailer = require("nodemailer");
@@ -15,23 +13,14 @@ module.exports = function (to, subject, message) {
     },
   });
 
-  // //? YandexMail (yandex):
-  // const transporter = nodemailer.createTransport({
-  //     service: 'Yandex',
-  //     auth: {
-  //         user: 'username@yandex.com',
-  //         pass: 'password' // your emailPassword
-  //     }
-  // })
-
   //! MAİL GÖNDERME
   transporter.sendMail(
     {
       // from: 'smyyeoztrk43@gmail.com',
-      to: to, // 'omercoskun4369@gmail.com', 
-      subject: subject, //  'Hello',
-      message, // 'Hello There. How are you?',
-       // '<b>Hello There.</b> <p>How are you?</p>',
+      to: to,
+      subject: subject,
+      text: message,
+      html: message,
     },
     (error, success) => console.log(success, error)
   );
