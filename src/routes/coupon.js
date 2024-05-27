@@ -4,18 +4,16 @@ const router = require("express").Router();
 /* ------------------------------------------------------- */
 
 const coupon = require("../controllers/coupon");
-// const { isAdmin } = require("../middlewares/permissions");
-
-// router.use(isAdmin);
+const { isAdmin, isLogin } = require("../middlewares/permissions");
 
 //URL:/coupons
-router.route("/").get(coupon.list).post(coupon.create);
+router.route("/").get(isLogin, coupon.list).post(isAdmin, coupon.create);
 router
   .route("/:id")
-  .get(coupon.read)
-  .put(coupon.update)
-  .patch(coupon.update)
-  .delete(coupon.delete);
+  .get(isLogin, coupon.read)
+  .put(isAdmin, coupon.update)
+  .patch(isAdmin, coupon.update)
+  .delete(isAdmin, coupon.delete);
 
 /* ------------------------------------------------------- */
 module.exports = router;

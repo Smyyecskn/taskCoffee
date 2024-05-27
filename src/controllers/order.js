@@ -61,9 +61,15 @@ module.exports = {
         { _id: data.coffeeId },
         { $inc: { stock_quantity: -data.quantity } }
       );
-        
+      /* SendMail */ //!Kullanıcıya mail gönderdik.
+      sendMail(
+        req.user.email,
+        "Siparişiniz alındı.",
+        "<p>Kahve siparişiniz alındı☕☕☕</p>",
+        "<p>Bizi tercih ettiğiniz için teşekkürler... </p>"
+      );
 
-       res.status(201).send({
+      res.status(201).send({
         error: false,
         data,
       });
@@ -140,7 +146,7 @@ module.exports = {
     // Adeti Coffee'dan arttır:iade işleminde
     const updateCoffee = await Coffee.updateOne(
       { _id: currentOrder.coffeeId },
-      { $inc: { stock_quantity: +currentOrder.quantity } } 
+      { $inc: { stock_quantity: +currentOrder.quantity } }
     );
 
     res.status(data.deletedCount ? 204 : 404).send({

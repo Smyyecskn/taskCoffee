@@ -145,7 +145,7 @@ const OrderSchema = new mongoose.Schema(
   { collection: "orders", timestamps: true }
 );
 
-// Middleware to update dependent fields before saving
+//pre-middleware ile hesap yontemi
 OrderSchema.pre("save", function (next) {
   this.amount = parseFloat((this.price * this.quantity).toFixed(2));
   this.bonusCoffee = this.amount > 3000;
@@ -157,7 +157,7 @@ OrderSchema.pre("save", function (next) {
   next();
 });
 
-// Method to calculate discount
+// indirim hesaplama yontemi
 OrderSchema.methods.calculateDiscount = function () {
   if (this.amount >= 3000) {
     return this.amount * 0.25 + (this.bonusCoffee ? 1 : 0);
